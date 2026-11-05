@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vision Ops · Object Detection</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="dot"></span>VISION<b>OPS</b></div>
+    <div class="status" id="status">connecting…</div>
+  </header>
+
+  <main class="layout">
+    <section class="viewer">
+      <div class="screen" id="screen">
+        <img id="feed" alt="" hidden />
+        <div class="placeholder" id="placeholder">
+          <div class="reticle"></div>
+          <p>Drop an image or video here, or pick a source on the right</p>
+        </div>
+        <div class="loading" id="loading" hidden><span></span>ANALYSING</div>
+      </div>
+      <div class="viewer-foot">
+        <span id="sourceLabel">NO SOURCE</span>
+        <span id="fps"></span>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="card">
+        <h3>Source</h3>
+        <label class="btn" for="imageInput">Analyse image</label>
+        <input type="file" id="imageInput" accept="image/*" hidden />
+        <label class="toggle" title="Zoomed tiles + lower threshold: finds more small / far people and objects, with more false alarms. ~5x slower.">
+          <input type="checkbox" id="maxRecall" /> Max recall (photos)
+        </label>
+        <label class="btn" for="videoInput">Upload video</label>
+        <input type="file" id="videoInput" accept="video/*" hidden />
+        <button class="btn ghost" id="webcamBtn">Use webcam</button>
+        <select id="cameraSelect" class="select" hidden title="Choose which camera to use"></select>
+        <form class="row" id="urlForm">
+          <input type="text" id="urlInput" placeholder="rtsp:// or camera index" />
+          <button class="btn small" type="submit">Go</button>
+        </form>
+        <button class="btn danger" id="stopBtn" hidden>Stop stream</button>
+      </div>
+
+      <div class="metrics">
+        <div class="metric lime"><span>PERSONS</span><b id="mPersons">0</b></div>
+        <div class="metric cyan"><span>OBJECTS</span><b id="mObjects">0</b></div>
+        <div class="metric"><span>TYPES</span><b id="mTypes">0</b></div>
+        <div class="metric"><span>PEOPLE W/ FACE</span><b id="mFaces">0</b></div>
+        <div class="metric orange hazard" hidden><span>FIRE</span><b id="mFire">0</b></div>
+        <div class="metric magenta hazard" hidden><span>SMOKE</span><b id="mSmoke">0</b></div>
+        <div class="metric"><span>DENSITY</span><b id="mDensity">—</b></div>
+        <div class="metric"><span>MS / FRAME</span><b id="mMs">—</b></div>
+      </div>
+
+      <div class="card alert" id="alert" hidden></div>
+
+      <div class="card">
+        <h3>People <span class="live" id="liveDot" hidden>● LIVE</span></h3>
+        <div id="people"><p class="muted">No people yet</p></div>
+      </div>
+
+      <div class="card">
+        <h3>Scene <span id="sceneSetting" class="pill"></span></h3>
+        <ul class="counts" id="scene"><li class="muted">Waiting for scene analysis</li></ul>
+      </div>
+
+      <div class="card">
+        <h3>Objects</h3>
+        <ul class="counts" id="counts"><li class="muted">No detections yet</li></ul>
+      </div>
+
+      <a class="docs" href="/docs" target="_blank">API docs →</a>
+    </aside>
+  </main>
+
+  <script src="/static/js/app.js" type="module"></script>
+</body>
+</html>

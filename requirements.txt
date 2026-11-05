@@ -1,0 +1,10 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic-settings>=2.4
+numpy>=1.26
+# OpenCV 5 is required: OpenCV 4.x cannot load the YOLO11 ONNX graphs.
+# On Windows use the full package: the *headless* wheel ships without Media Foundation,
+# and many laptop cameras (Intel IPU / MIPI, e.g. Dell, Lenovo, HP) only work through it.
+opencv-python>=5.0; sys_platform == "win32"
+opencv-python-headless>=5.0; sys_platform != "win32"
